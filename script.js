@@ -1,32 +1,44 @@
-document.getElementById("userForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
+const password = "friend123"; // Set the password for your friend
+const chatHistoryElement = document.getElementById("chat-history");
 
-    // Retrieve form data
-    let firstName = document.getElementById("firstName").value;
-    let lastName = document.getElementById("lastName").value;
-    let age = document.getElementById("age").value;
-    let gender = document.getElementById("gender").value;
-    let telegramUsername = document.getElementById("telegramUsername").value;
-    let comments = document.getElementById("comments").value;
-
-    // Validate form data
-    if (!firstName || !lastName || !age || !gender || !telegramUsername) {
-        alert("Please fill out all required fields.");
-        return;
+function checkPassword() {
+    const enteredPassword = document.getElementById("password").value;
+    if (enteredPassword === password) {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("chat-section").style.display = "block";
+        loadChatHistory();
+    } else {
+        alert("Incorrect password!");
     }
+}
 
-    // Display confirmation message
-    let userInfo = `
-        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-        <p><strong>Age:</strong> ${age}</p>
-        <p><strong>Gender:</strong> ${gender}</p>
-        <p><strong>Telegram Username:</strong> @${telegramUsername}</p>
-    `;
-    document.getElementById("userInfo").innerHTML = userInfo;
+function sendMessage() {
+    const message = document.getElementById("message").value;
+    if (message.trim() === "") return;
 
-    let userComments = comments ? `<p><strong>Comments:</strong> ${comments}</p>` : "<p>No comments provided.</p>";
-    document.getElementById("userComments").innerHTML = userComments;
+    const chatHistory = getChatHistory();
+    const newMessage = { text: message, time: new Date().toLocaleString() };
 
-    document.getElementById("confirmationMessage").style.display = "block";
-    document.getElementById("userForm").style.display = "none";
-});
+    chatHistory.push(newMessage);
+    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+
+    appendMessage(newMessage);
+    document.getElementById("message").value = "";
+}
+
+function getChatHistory() {
+    const chatHistory = localStorage.getItem("chatHistory");
+    return chatHistory ? JSON.parse(chatHistory) : [];
+}
+
+function loadChatHistory() {
+    const chatHistory = getChatHistory();
+    chatHistory.forEach(appendMessage);
+}
+
+function appendMessage(message) {
+    const messageElement = document.createElement("div");
+    messageElement.textContent = `${message.time}: ${message.text}`;
+    chatHistoryElement.appendChild(messageElement);
+    chatHistoryElement.scrollTop = chatHistoryElement.scrollHeight;
+}
