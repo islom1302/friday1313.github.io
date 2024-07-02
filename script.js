@@ -43,3 +43,4 @@ function appendMessage(message) {
     chatHistoryElement.appendChild(messageElement);
     chatHistoryElement.scrollTop = chatHistoryElement.scrollHeight;
 }
+
