@@ -1,4 +1,4 @@
-const password = "friend123"; // Set the password for your friend
+const password = "Asuna"; // Set the password for your friend
 const chatHistoryElement = document.getElementById("chat-history");
 
 function checkPassword() {
