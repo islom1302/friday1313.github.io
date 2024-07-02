@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App</title>
+    <title>iPhone Chat App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,9 +13,12 @@
         <button onclick="checkPassword()">Enter</button>
     </div>
     <div id="chat-section" style="display:none;">
+        <div id="chat-header">Chat</div>
         <div id="chat-history"></div>
-        <input type="text" id="message" placeholder="Type a message">
-        <button onclick="sendMessage()">Send</button>
+        <div id="message-box">
+            <input type="text" id="message" placeholder="Type a message">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
